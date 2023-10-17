@@ -1,0 +1,101 @@
+basePath: /v2
+definitions:
+  main.User:
+    description: Nguyen Trong Doanh
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:1234
+info:
+  contact: {}
+  description: Nguyen Trong Doanh
+  title: API Echo_Swagger
+  version: "1.0"
+paths:
+  /users:
+    get:
+      description: Trả về danh sách tất cả người dùng từ cơ sở dữ liệu
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.User'
+            type: array
+      summary: Lấy danh sách người dùng
+      tags:
+      - Users
+  /users/create:
+    post:
+      consumes:
+      - application/json
+      description: Tạo một người dùng mới với thông tin được cung cấp
+      parameters:
+      - description: Thông tin người dùng mới
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Người dùng đã được tạo thành công
+          schema:
+            $ref: '#/definitions/main.User'
+      summary: Tạo người dùng mới
+      tags:
+      - Users
+  /users/delete/{id}:
+    delete:
+      parameters:
+      - description: ID của người dùng cần xóa
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Người dùng đã bị xóa
+          schema:
+            type: string
+      summary: Xóa người dùng
+      tags:
+      - Users
+  /users/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID của người dùng cần cập nhật
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Thông tin người dùng cần cập nhật
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/main.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.User'
+      summary: Cập nhật thông tin người dùng
+      tags:
+      - Users
+swagger: "2.0"
